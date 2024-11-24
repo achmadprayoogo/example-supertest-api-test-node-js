@@ -1,0 +1,33 @@
+{
+  "name": "example-supertest-api-test",
+  "version": "1.0.0",
+  "description": "example code for testing api using supertest library",
+  "main": "index.js",
+  "type": "module",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "jest --coverage",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": [
+    "express",
+    "javascript",
+    "supertest",
+    "api"
+  ],
+  "author": "@achmadprayoogo",
+  "license": "MIT",
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  }
+}
