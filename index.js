@@ -7,7 +7,7 @@ const app = express();
 const port = process.env.PORT;
 app.use(express.json());
 app.use("/", router);
-app.use(errorHandler);
+app.use(errorHandler); // must be the last middleware
 
 app.listen(port, () => {
   console.info(`server is already running`);

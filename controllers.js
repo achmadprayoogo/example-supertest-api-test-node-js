@@ -33,20 +33,26 @@ function getUserById(req, res) {
   });
 }
 
-function searchUsers(req, res) {
-  const key = req.query.search.toLowerCase();
-  const result = users.filter(
-    (user) =>
-      user.name.toLowerCase().includes(key) || user.id.toString().includes(key)
-  );
-  if (result.length === 0) {
-    throw new Error("User not found");
+// in async funtion we need to use try catch to handle error if not app will crash
+async function searchUsers(req, res, next) {
+  try {
+    const key = req.query.search.toLowerCase();
+    const result = users.filter(
+      (user) =>
+        user.name.toLowerCase().includes(key) ||
+        user.id.toString().includes(key)
+    );
+    if (result.length === 0) {
+      throw new Error("User not found");
+    }
+    res.send({
+      status: 200,
+      message: "success",
+      data: result,
+    });
+  } catch (err) {
+    errorHandler(err, req, res, next);
   }
-  res.send({
-    status: 200,
-    message: "success",
-    data: result,
-  });
 }
 
 function errorHandler(err, req, res, next) {
@@ -61,6 +67,5 @@ function errorHandler(err, req, res, next) {
       error: err.message,
     });
   }
-  next();
 }
 export { getAllUsers, getUserById, errorHandler };
