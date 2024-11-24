@@ -9,13 +9,58 @@ const users = [
 ];
 
 function getAllUsers(req, res) {
-  res.send(users);
+  if (req.query.search) {
+    searchUsers(req, res);
+  } else {
+    res.send({
+      status: 200,
+      message: "success",
+      data: users,
+    });
+  }
 }
 
 function getUserById(req, res) {
   const id = parseInt(req.params.id);
-  const user = users.find((user) => user.id === id);
-  res.send(user);
+  const result = users.find((user) => user.id === id);
+  if (!result) {
+    throw new Error("User not found");
+  }
+  res.send({
+    status: 200,
+    message: "success",
+    data: result,
+  });
 }
 
-export { getAllUsers, getUserById };
+function searchUsers(req, res) {
+  const key = req.query.search.toLowerCase();
+  const result = users.filter(
+    (user) =>
+      user.name.toLowerCase().includes(key) || user.id.toString().includes(key)
+  );
+  if (result.length === 0) {
+    throw new Error("User not found");
+  }
+  res.send({
+    status: 200,
+    message: "success",
+    data: result,
+  });
+}
+
+function errorHandler(err, req, res, next) {
+  if (err.message === "User not found") {
+    res.status(404).send({
+      status: 404,
+      error: err.message,
+    });
+  } else {
+    res.status(500).send({
+      status: 404,
+      error: err.message,
+    });
+  }
+  next();
+}
+export { getAllUsers, getUserById, errorHandler };
