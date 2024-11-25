@@ -35,7 +35,7 @@ in the testing, user data id and name have to be macthed with user data id that 
 You can install the project by clone it via GitHub :
 
 ```bash
-git clone https://github.com/achmadprayoogo/example-supertest-api-test.git
+git clone https://github.com/achmadprayoogo/example-supertest-api-test-node-js.git
 npm install
 ```
 
